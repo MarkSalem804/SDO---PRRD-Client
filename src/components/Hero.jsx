@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
-import heroImage from "../assets/heroImage.png";
+import heroImage from "../assets/HeroImage.png";
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-primary-600 to-primary-500 pt-32 pb-20 overflow-hidden">
+    <section
+      id="hero"
+      className="relative bg-gradient-to-br from-primary-600 to-primary-500 pt-32 pb-20 overflow-hidden"
+    >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute right-0 top-0 w-96 h-96 bg-white rounded-full -mr-48 -mt-48"></div>
@@ -31,8 +34,10 @@ const Hero = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="#contact"
+                href="https://csm.depedimuscity.com"
                 className="btn bg-white text-primary-500 hover:bg-neutral-100"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 We appreciate your Feedback
               </a>
@@ -53,29 +58,17 @@ const Hero = () => {
           </motion.div>
         </div>
 
+        {/* Placeholder for removed statistics section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 md:p-6"
+          className="mt-16 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 md:p-6 text-center text-white text-opacity-90"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {[
-              { number: "200+", label: "Research Papers" },
-              { number: "45", label: "Policy Recommendations" },
-              { number: "12", label: "Government Partnerships" },
-              { number: "30+", label: "Expert Researchers" },
-            ].map((stat, index) => (
-              <div key={index} className="text-white">
-                <div className="text-3xl md:text-4xl font-bold mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-white text-opacity-80">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="text-white text-xl">
+            Schools Governance and Operations Division - Planning and Research
+            Section
+          </p>
         </motion.div>
       </div>
     </section>

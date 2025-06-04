@@ -5,35 +5,73 @@ import { FiArrowRight } from "react-icons/fi";
 import PropTypes from "prop-types";
 import depedLogo from "../assets/deped_logo.png";
 
-const researchAreas = [
+const researchAreasData = [
   {
     id: 1,
     title: "LIS BOSY",
+    syText: "SY 2024 - 2025",
     imageUrl: depedLogo,
     href: "https://docs.google.com/spreadsheets/d/1A679sPzIFDIyDqKyclUYBsjkyLs8Ty9cewflsEDBzLE/edit?gid=2047182434#gid=2047182434",
   },
   {
     id: 2,
     title: "LIS EOSY",
+    syText: "SY 2024 - 2025",
     imageUrl: depedLogo,
     href: "https://docs.google.com/spreadsheets/d/19U53LrKoNjWXahfjxBUINW6G619VP3e7eo1eIxoTz6E/edit?gid=2047182434#gid=2047182434",
   },
   {
     id: 3,
     title: "BEIS",
+    syText: "SY 2023 - 2024",
     imageUrl: depedLogo,
-    href: "#", // Placeholder for now
+    href: "https://docs.google.com/spreadsheets/d/16ftdHpZVDjfRV0UyhM-2UPWvvdDH8-sZJ_0UaDbxLWk/edit?gid=2107593635#gid=2107593635", // Placeholder for now
   },
   {
     id: 4,
-    title: "NSBI",
+    title: "BEIS",
+    syText: "SY 2024 - 2025",
     imageUrl: depedLogo,
-    href: "#", // Placeholder for now
+    href: "https://docs.google.com/spreadsheets/d/14tQfcLQr7PdcKre1YDJr1YrD9JCNS5POCqw3ioSby-g/edit?gid=2107593635#gid=2107593635", // Placeholder for now
+  },
+  {
+    id: 5,
+    title: "NSBI",
+    syText: "SY 2023 - 2024",
+    imageUrl: depedLogo,
+    href: "https://docs.google.com/spreadsheets/d/1EaM3XZjkROmBl7ZYtWZIXjXThVWecw1GOGFlp7S0RPc/edit?gid=2005271003#gid=2005271003", // Placeholder for now
+  },
+  {
+    id: 6,
+    title: "NSBI",
+    syText: "SY 2024 - 2025",
+    imageUrl: depedLogo,
+    href: "https://docs.google.com/spreadsheets/d/10h8DPe_wwNci5DbAYFEGjI7-8MAAZIVtc5VJ7u6RX7E/edit?gid=2005271003#gid=2005271003", // Placeholder for now
   },
 ];
 
 const FeaturedResearch = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Group research areas by title
+  const groupedResearchAreas = researchAreasData.reduce((acc, item) => {
+    if (!acc[item.title]) {
+      acc[item.title] = {
+        title: item.title,
+        imageUrl: item.imageUrl,
+        items: [],
+      };
+    }
+    acc[item.title].items.push({
+      id: item.id,
+      syText: item.syText,
+      href: item.href,
+    });
+    return acc;
+  }, {});
+
+  // Convert grouped object back to an array
+  const researchAreas = Object.values(groupedResearchAreas);
 
   return (
     <section id="research" className="section bg-neutral-50">
@@ -53,9 +91,14 @@ const FeaturedResearch = () => {
           </motion.div>
         </div>
 
+        {/* Map over grouped research areas */}
         <div className="grid md:grid-cols-3 gap-8">
-          {researchAreas.map((research, index) => (
-            <ResearchCard key={research.id} research={research} index={index} />
+          {researchAreas.map((researchGroup, index) => (
+            <ResearchCard
+              key={researchGroup.title}
+              research={researchGroup}
+              index={index}
+            />
           ))}
         </div>
       </div>
@@ -63,6 +106,7 @@ const FeaturedResearch = () => {
   );
 };
 
+// Modified ResearchCard to handle grouped data
 const ResearchCard = ({ research, index }) => {
   return (
     <motion.div
@@ -80,37 +124,40 @@ const ResearchCard = ({ research, index }) => {
           className="w-full h-full object-contain transition-transform duration-500"
         />
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col items-center">
         <h3 className="text-xl font-bold mb-3 text-center">{research.title}</h3>
-        <p className="text-neutral-600 text-sm text-center mb-4">
-          {research.title === "LIS BOSY" &&
-            "View Beginning of School Year Data"}
-          {research.title === "LIS EOSY" && "View End of School Year Data"}
-          {research.title === "BEIS" &&
-            "View Basic Education Information System Data"}
-          {research.title === "NSBI" &&
-            "View National School Building Inventory Data"}
-        </p>
-        <a
-          href={research.href}
-          className="inline-flex items-center px-4 py-2 border border-blue-500 text-blue-500 rounded hover:bg-blue-500 hover:text-white transition-colors duration-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Data
-          <FiArrowRight className="ml-1" />
-        </a>
+        {/* Render buttons for each item in the group */}
+        <div className="flex flex-col space-y-2">
+          {research.items.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              className="inline-flex items-center justify-center px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600 transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.syText}
+              <FiArrowRight className="ml-1" />
+            </a>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
 };
 
+// Updated PropTypes for ResearchCard
 ResearchCard.propTypes = {
   research: PropTypes.shape({
-    id: PropTypes.number,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
-    href: PropTypes.string,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        syText: PropTypes.string,
+        href: PropTypes.string,
+      })
+    ).isRequired,
   }).isRequired,
   index: PropTypes.number,
 };

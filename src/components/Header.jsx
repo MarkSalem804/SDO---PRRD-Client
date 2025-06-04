@@ -12,7 +12,7 @@ const Header = () => {
       className={`fixed w-full z-50 transition-all duration-300 bg-white shadow-md py-4`}
     >
       <div className="container flex items-center justify-between">
-        <div className="flex items-center">
+        <a href="#hero" className="flex items-center">
           <img
             src={depedLogo}
             alt="DepEd Logo"
@@ -23,10 +23,10 @@ const Header = () => {
               SDO - Imus City
             </span>
             <span className="text-sm text-neutral-500 font-normal">
-              Policy, Planning and Research Division
+              Easy Links
             </span>
           </div>
-        </div>
+        </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8 ml-10">
@@ -65,11 +65,9 @@ const Header = () => {
 const NavLinks = ({ mobile }) => {
   const links = [
     { text: "Data Overview", href: "#research" },
-    { text: "Research Overview", href: "#research" },
-    { text: "Education Planning", href: "#departments" },
-    { text: "Policy Review", href: "#publications" },
-    { text: "Services", href: "#team" },
-    { text: "Contacts", href: "#contact" },
+    { text: "Education Planning", href: "#educationandplanning" },
+    { text: "Services", href: "#services" },
+    { text: "Contacts", href: "#team" },
   ];
 
   return links.map((link) => (
