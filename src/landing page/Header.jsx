@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { motion, AnimatePresence } from "framer-motion";
 import depedLogo from "../assets/deped_logo.png";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,6 +33,12 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8 ml-10">
           <NavLinks />
+          <Link
+            to="/login"
+            className="flex items-center space-x-2 text-neutral-800 hover:text-primary-500 transition-colors"
+          >
+            <VpnKeyIcon size={20} />
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -54,6 +62,12 @@ const Header = () => {
           >
             <div className="container py-4 flex flex-col space-y-4">
               <NavLinks mobile />
+              <Link
+                to="/login"
+                className="flex items-center space-x-2 py-2 text-neutral-800 hover:text-primary-500 transition-colors"
+              >
+                <VpnKeyIcon size={20} />
+              </Link>
             </div>
           </motion.div>
         )}
@@ -67,7 +81,7 @@ const NavLinks = ({ mobile }) => {
     { text: "Data Overview", href: "#research" },
     { text: "Education Planning", href: "#educationandplanning" },
     { text: "Services", href: "#services" },
-    { text: "Contacts", href: "#team" },
+    { text: "About Us", href: "#team" },
   ];
 
   return links.map((link) => (
